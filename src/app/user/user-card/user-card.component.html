@@ -1,0 +1,9 @@
+<div class="card card-body bg-success-subtle border-0 shadow-none" data-aos="zoom-in">
+	<input class="form-control mb-2" disabled type="text" value="{{user.username}}">
+	<select (change)="updateRole()" [(ngModel)]="user.role" class="form-select mb-2" required>
+		<option *ngFor="let r of roles | keyvalue" [label]="r.value" [value]="r.key"></option>
+	</select>
+	<button (click)="delete()" class="btn btn-success w-100" type="button">Добавить</button>
+	<div style="height: 10px;"></div>
+	<button (click)="delete()" class="btn btn-danger w-100" type="button">Удалить</button>
+</div>

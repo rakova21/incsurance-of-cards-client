@@ -1,0 +1,9 @@
+<div class="card card-body bg-success-subtle shadow-none border-0" data-aos="zoom-in">
+	<form [formGroup]="categoryFormGroup" (ngSubmit)="update()">
+		<input type="text" formControlName="name" class="form-control mb-2" placeholder="Наименование">
+		<button type="submit" class="btn btn-success w-100 mb-2" [disabled]="categoryFormGroup.invalid">
+			Обновить
+		</button>
+		<a (click)="delete()" class="btn btn-danger w-100">Удалить</a>
+	</form>
+</div>

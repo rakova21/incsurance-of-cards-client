@@ -1,0 +1,32 @@
+<div class="container py-5">
+
+	<h1 data-aos="zoom-in">Добавить</h1>
+
+	<div class="row mt-4" data-aos="zoom-in">
+		<div class="col-auto">
+			<a appNavigate [navigateURL]="'instructions'" role="button" class="btn btn-success">Назад</a>
+		</div>
+	</div>
+
+</div>
+
+<div class="container">
+
+	<div class="card card-body bg-success-subtle border-0 shadow-none" data-aos="zoom-in">
+		<form [formGroup]="typeFormGroup" (ngSubmit)="save()" class="row fs-4">
+			<div class="col-12 mb-2">
+				<p class="fs-4 m-0">Фото</p>
+				<input type="file" (change)="changeImg($event)" class="form-control" accept="image/*">
+			</div>
+			<div class="col-12 mb-2">
+				<p class="fs-4 m-0">Текст</p>
+				<textarea formControlName="description" class="form-control" minlength="1" maxlength="5000"></textarea>
+			</div>
+			<div class="col-12">
+				<button type="submit" class="btn btn-success w-100" [disabled]="checkSubmit">Добавить</button>
+			</div>
+		</form>
+	</div>
+
+</div>
+

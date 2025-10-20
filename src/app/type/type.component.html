@@ -1,0 +1,42 @@
+<div class="container py-5">
+
+	<h1 data-aos="zoom-in">Типы страхований</h1>
+
+	<div *ngIf="role === 'ADMIN'" class="row mt-4" data-aos="zoom-in">
+		<div class="col-auto">
+			<a appNavigate [navigateURL]="'type_add'" role="button" class="btn btn-success">Добавить</a>
+		</div>
+	</div>
+
+</div>
+
+<div class="container">
+
+	<div class="row fs-5">
+		@for (i of typesSorted; track i.id) {
+			<div class="col-12 col-lg-6 mb-4" data-aos="zoom-in">
+				<div class="card card-body bg-success-subtle border-0 shadow-none">
+					<p class="mb-2 text-center fs-4">{{ i.name }}</p>
+					<p class="m-0">{{ 'Категория: ' + i.categoryName }}</p>
+					<p class="m-0">{{ 'Сумма: ' + i.sum }}</p>
+					<p class="m-0">{{ 'Размер страховой премии: ' + i.prize }}</p>
+					<p class="m-0">{{ 'Порядок и срок уплаты: ' + i.term }}</p>
+					<p class="m-0">{{ 'Условия страхования: ' + i.conditions }}</p>
+
+					<div *ngIf="role === 'ADMIN'" class="row">
+						<div class="col-12 col-lg-6 mt-2">
+							<a appNavigate [navigateURL]="'type_update'" [queryParams]="{id:i.id}"
+							   class="btn btn-success w-100">Обновить</a>
+						</div>
+						<div class="col-12 col-lg-6 mt-2">
+							<button type="button" class="btn btn-danger w-100" (click)="delete(i.id)">Удалить</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		}
+	</div>
+
+</div>
+

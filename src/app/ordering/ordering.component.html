@@ -1,0 +1,23 @@
+<div class="container py-5">
+
+	<h1 data-aos="zoom-in">Заявки</h1>
+
+</div>
+
+<div class="container">
+
+	<div class="row">
+		@for (i of orderings; track i.id) {
+			<div class="col-12 col-lg-4 mb-4" data-aos="zoom-in">
+				<a appNavigate [navigateURL]="'ordering'" [queryParams]="{id:i.id}" role="button">
+					<div class="card card-body bg-success-subtle border-0 shadow-none">
+						<p *ngIf="role === 'SENIOR_MANAGER'" class="m-0">{{ i.owner.fio }}</p>
+						<p class="m-0">{{ 'Статус: ' + i.statusName }}</p>
+						<p class="m-0">{{ 'Номер договора: ' + i.id }}</p>
+					</div>
+				</a>
+			</div>
+		}
+	</div>
+
+</div>

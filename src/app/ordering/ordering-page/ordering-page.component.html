@@ -1,0 +1,121 @@
+<div class="container py-5">
+
+	<h1 data-aos="zoom-in">Заявка</h1>
+
+	<div class="row mt-4" data-aos="zoom-in">
+		<div class="col-auto">
+			<a appNavigate [navigateURL]="'orderings'" role="button" class="btn btn-success">Назад</a>
+		</div>
+		<div class="col-auto">
+			<a (click)="generatePDF()" class="btn btn-success">PDF</a>
+		</div>
+	</div>
+
+</div>
+
+<div class="container">
+
+	<div *ngIf="role === 'SENIOR_MANAGER' && ordering.status === 'WAITING'"
+		 class="card card-body bg-success-subtle shadow-none border-0 fs-5 mb-4" data-aos="zoom-in">
+		<div class="row fs-5">
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Дата начала договора</p>
+				<input type="date" [(ngModel)]="dateStart" class="form-control">
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Дата окончания договора</p>
+				<input type="date" [(ngModel)]="dateEnd" class="form-control">
+			</div>
+			<div class="col-12">
+				<button type="button" class="btn btn-success w-100" [disabled]="!dateStart || !dateEnd"
+						(click)="payment()">Подтвердить
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="card card-body bg-success-subtle shadow-none border-0 fs-5" data-aos="zoom-in">
+		<button *ngIf="role === 'USER' && ordering.status === 'PAYMENT'" type="button"
+				class="btn btn-success w-100 mb-3" (click)="paid()">Оплатить
+		</button>
+		<p *ngIf="role === 'SENIOR_MANAGER'" class="m-0">{{ 'Клиент: ' + ordering.owner.fio }}</p>
+		<p class="m-0">{{ 'Номер договора: ' + ordering.id }}</p>
+		<p class="m-0">{{ 'Статус: ' + ordering.statusName }}</p>
+		<p *ngIf="ordering.dateStart" class="m-0">{{ 'Даты: ' + ordering.dateStart + ' - ' + ordering.dateEnd }}</p>
+		<div class="row">
+			<div class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Банковская платежная карточка: ' + ordering.card }}</p>
+			</div>
+			<div *ngIf="ordering.cardTerm" class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Срок действия банковской карточки: ' + ordering.cardTerm }}</p>
+			</div>
+			<div class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Банк-эмитент карточки: ' + ordering.cardBank }}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div *ngIf="ordering.account" class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Номер счета: ' + ordering.account }}</p>
+			</div>
+			<div *ngIf="ordering.accountTerm" class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Срок действия счета: ' + ordering.accountTerm }}</p>
+			</div>
+			<div *ngIf="ordering.accountBank" class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Банк-эмитент счета: ' + ordering.accountBank }}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div *ngIf="ordering.ewallet" class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Электронный кошелек: ' + ordering.account }}</p>
+			</div>
+			<div *ngIf="ordering.ewalletTerm" class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Срок действия электронный кошелька: ' + ordering.accountTerm }}</p>
+			</div>
+			<div *ngIf="ordering.ewalletName" class="col-12 col-lg-6">
+				<p class="m-0">{{ 'Эмитент электронного кошелька: ' + ordering.accountBank }}</p>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div *ngIf="ordering.status !== 'WAITING'" class="container mt-5">
+
+	<div class="card card-body text-black border-0 shadow-none" data-aos="zoom-in" id="generatePDF">
+		<p class="fs-1 mb-2 text-center">
+			Номер договора №{{ordering.id}}
+		</p>
+
+		<p class="fs-4 mb-1">
+			Страховщик: Белорусское республиканское унитарное страховое предприятие «Sure»
+		</p>
+		<p class="fs-4 mb-1">
+			УНП 9999999999 тел. +375 (99) 999-99-99
+		</p>
+
+		<p class="fs-4 mb-1">
+			Страхователь {{ ordering.owner.fio + ' ' + ordering.owner.passport }}
+		</p>
+
+		<p class="fs-4 mb-1" align="justify">
+			На условиях Правил № 1 добровольного страхования (далее - Правила), согласованных с Министерством
+			финансов Республики Беларусь 2004-03-03 №97 с последующими изменениями и дополнениями, которые
+			принимаются путем
+			присоединения к настоящему договору в соответствии со специальным разрешением (лицензией) №
+			02200/13-00001 на право
+			осуществления страховой деятельности от 2003-12-10, на основании заявления страхователя
+			от {{ ordering.dateStart }} до {{ ordering.dateEnd }}
+			заключили договор добровольного страхования (далее – договор страхования) о нижеследующем (после
+			заключения настоящего договора страхования заявление со всеми прилагаемыми к нему документами (в
+			т.ч.
+			декларации застрахованных лиц в случае их заполнения, список застрахованных лиц, в случае, если
+			страхователь – юридическое лицо,
+			Объектом добровольного страхования являются не противоречащие законодательству Республики Беларусь
+			имущественные интересы страхователя (застрахованного лица
+			Страховым случаем является факт понесенных расходов в связи с обращением застрахованного лица во
+			время
+			действия договора страхования в организации.
+		</p>
+	</div>
+
+</div>

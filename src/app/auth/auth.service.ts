@@ -1,0 +1,69 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {GlobalService} from "../global.service";
+import {AlertService} from "../alert/alert.service";
+
+@Injectable({
+	providedIn: 'root'
+})
+
+export class AuthService {
+
+	constructor(
+		private http: HttpClient,
+		private global: GlobalService,
+		private alert: AlertService,
+	) {
+	}
+
+	private get url() {
+		return this.global.backendURL + '/users'
+	}
+
+	private error(e: any) {
+		console.log(e.error);
+		if (e.status === 0) this.alert.add("Сервер не работает");
+		else this.alert.add(e.error.data || e.error.message, "danger")
+	}
+
+	login(user: any) {
+		this.http.post(
+			this.url + '/login',
+			"",
+			{headers: {'Authorization': 'Basic ' + btoa(user.username + ":" + user.password)}}
+		).subscribe({
+			next: (res: any) => {
+				this.global.set(res.data);
+				this.global.page('');
+			},
+			error: (e: any) => this.error(e)
+		})
+	}
+
+	reg(user: any) {
+		this.http.post(
+			this.url,
+			user,
+		).subscribe({
+			next: () => this.login(user),
+			error: (e: any) => this.error(e)
+		})
+	}
+
+	find() {
+		if (this.global.token === "") return;
+
+		this.http.get(
+			this.url,
+			{headers: this.global.headersToken}
+		).subscribe({
+			next: (res: any) => this.global.role = res.data.role,
+			error: () => this.global.clear()
+		});
+	}
+
+	logout() {
+		this.global.clear();
+		this.global.page('login')
+	}
+}

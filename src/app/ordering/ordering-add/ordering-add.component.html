@@ -1,0 +1,76 @@
+<div class="container py-5">
+
+	<h1 data-aos="zoom-in">Оформить заявку</h1>
+
+</div>
+
+<div class="container">
+
+	<form [formGroup]="orderingFormGroup" (ngSubmit)="save()" data-aos="zoom-in"
+		  class="card card-body bg-success-subtle shadow-none border-0">
+		<div class="row fs-5">
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Первые 4 номера банковской карточки</p>
+				<input type="text" formControlName="cardStart" class="form-control" pattern="^[0-9]{4}$" minlength="4"
+					   maxlength="4" placeholder="0000">
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Последние 4 номера банковской карточки</p>
+				<input type="text" formControlName="cardEnd" class="form-control" pattern="^[0-9]{4}$" minlength="4"
+					   maxlength="4" placeholder="0000">
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Срок действия банковской карточки (опционально)</p>
+				<input type="text" formControlName="cardTerm" class="form-control"
+					   pattern="^(0[1-9]|1[0-2])/([0-9]{2})$" maxlength="5" placeholder="00/00">
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Платежная система</p>
+				<select (change)="changeCardCategory($event)" class="form-select">
+					<option disabled selected>Выберите</option>
+					<option *ngFor="let i of cardCategories | keyvalue" [value]="i.key" [label]="i.value"></option>
+				</select>
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Наименование банка-эмитента карточки</p>
+				<input type="text" formControlName="cardBank" class="form-control" minlength="1" maxlength="255">
+			</div>
+			<div class="col-12">
+				<hr>
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Номер счета (опционально)</p>
+				<input type="text" formControlName="account" class="form-control" maxlength="255">
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Срок действия счета (опционально)</p>
+				<input type="text" formControlName="accountTerm" class="form-control"
+					   pattern="^(0[1-9]|1[0-2])/([0-9]{2})$" maxlength="5" placeholder="00/00">
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Наименование банка-эмитента счёта (опционально)</p>
+				<input type="text" formControlName="accountBank" class="form-control" maxlength="255">
+			</div>
+			<div class="col-12">
+				<hr>
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Номер электронного кошелька (опционально)</p>
+				<input type="text" formControlName="ewallet" class="form-control" maxlength="255">
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Срок действия электронного кошелька (опционально)</p>
+				<input type="text" formControlName="ewalletTerm" class="form-control"
+					   pattern="^(0[1-9]|1[0-2])/([0-9]{2})$" maxlength="5" placeholder="00/00">
+			</div>
+			<div class="col-12 col-lg-6 mb-2">
+				<p class="m-0">Наименование эмитента электронных денег (опционально)</p>
+				<input type="text" formControlName="ewalletName" class="form-control" maxlength="255">
+			</div>
+			<div class="col-12">
+				<button type="submit" class="btn btn-success w-100" [disabled]="checkSubmit">Оформить заявку</button>
+			</div>
+		</div>
+	</form>
+
+</div>

@@ -1,0 +1,81 @@
+<nav class="navbar bg-success shadow flex-column align-items-start h-100" data-bs-theme="dark">
+	<div class="container-fluid flex-column">
+		<a appNavigate [navigateURL]="''" class="navbar-brand mb-3" role="button"><b>FinShield</b></a>
+
+		<div class="w-100 fs-6">
+			<ul class="navbar-nav flex-column w-100">
+
+				<li class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="''" class="nav-link text-white" role="button">Главная</a>
+				</li>
+				<li class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'types'" class="nav-link text-white" role="button">
+						Типы страхований
+					</a>
+				</li>
+				<li class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'instructions'" class="nav-link text-white" role="button">
+						Инструкции
+					</a>
+				</li>
+
+				<li *ngIf="role === 'USER' || role === 'MANAGER' || role === 'SENIOR_MANAGER'" class="nav-item"
+					data-aos="zoom-in">
+					<hr>
+				</li>
+				<li *ngIf="role === 'USER'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'ordering_add'" class="nav-link text-white" role="button">Оформить
+						заявку</a>
+				</li>
+				<li *ngIf="role === 'MANAGER'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'ordering_add_user'" class="nav-link text-white" role="button">Оформить
+						заявку</a>
+				</li>
+				<li *ngIf="role === 'USER' || role === 'SENIOR_MANAGER'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'orderings'" class="nav-link text-white" role="button">Заявки</a>
+				</li>
+
+				<li *ngIf="role === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<hr>
+				</li>
+				<li *ngIf="role === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'categories'" class="nav-link text-white" role="button">Категории</a>
+				</li>
+				<li *ngIf="role === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'users'" class="nav-link text-white" role="button">Пользователи</a>
+				</li>
+				<li *ngIf="role === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'stats'" class="nav-link text-white" role="button">Аналитика</a>
+				</li>
+
+				<!--				<li class="nav-item dropdown">-->
+				<!--					<a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Action</a>-->
+				<!--					<div class="dropdown-menu">-->
+				<!--						<a class="dropdown-item" href="#">Action</a>-->
+				<!--						<div class="dropdown-divider"></div>-->
+				<!--						<a class="dropdown-item" href="#">Action</a>-->
+				<!--					</div>-->
+				<!--				</li>-->
+
+			</ul>
+
+			<ul class="navbar-nav flex-column w-100 mt-auto">
+				<li class="nav-item" data-aos="zoom-in">
+					<hr>
+				</li>
+				<li *ngIf="role === 'USER'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'account'" class="nav-link text-white" role="button">Профиль</a>
+				</li>
+				<li *ngIf="role === 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'login'" class="nav-link text-white" role="button">Вход</a>
+				</li>
+				<li *ngIf="role === 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'reg'" class="nav-link text-white" role="button">Регистрация</a>
+				</li>
+				<li *ngIf="role !== 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a (click)="logout()" class="nav-link text-white" role="button">Выход</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
